@@ -3,7 +3,7 @@
 // @ts-nocheck
 require_once "base.php";
 
-$ucid = "mt85"; // <-- set your ucid
+$ucid = "av847"; // <-- set your ucid
 
 // Don't edit the arrays below, they are used to test your code
 $array1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -28,6 +28,8 @@ function printOdds($arr, $arrayNumber)
     $output_result = "";
     // Start Solution Edits
     // set solution to $output_result variable
+
+    // Step 1: 
    
     // End Solution Edits
     printScenario1Output($output_result);
