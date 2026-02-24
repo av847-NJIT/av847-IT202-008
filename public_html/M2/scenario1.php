@@ -37,7 +37,12 @@ function printOdds($arr, $arrayNumber)
     foreach($arr as $num)
     {
         if($num % 2 != 0){
-            $output_result .= (string)$num . ", "; // add each odd number to variable separated by comma and space
+            // Seperate each element in string by comma and space
+            if($output_result !== ""){
+                $output_result .= ", ";
+            }
+            $output_result .= (string)$num; // add each odd number to variable
+
         }
     }
    
