@@ -29,7 +29,9 @@ function printOdds($arr, $arrayNumber)
     // Start Solution Edits
     // set solution to $output_result variable
 
-    // Step 1: 
+    // Step 1: create a for loop to iterate through each element in the array
+    // Step 2: for each element, check if the number is odd (num %2 != 0)
+    // Step 3: if the number is odd, display the number 
    
     // End Solution Edits
     printScenario1Output($output_result);
