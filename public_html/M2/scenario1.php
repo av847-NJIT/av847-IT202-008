@@ -31,7 +31,15 @@ function printOdds($arr, $arrayNumber)
 
     // Step 1: create a for loop to iterate through each element in the array
     // Step 2: for each element, check if the number is odd (num %2 != 0)
-    // Step 3: if the number is odd, display the number 
+    // Step 3: if the number is odd, Type cast the integer into a string and store
+    // it into the variable
+
+    foreach($arr as $arrayNumber)
+    {
+        if($arrayNumber % 2 != 0){
+            $output_result = (string)$arrayNumber;
+        }
+    }
    
     // End Solution Edits
     printScenario1Output($output_result);
