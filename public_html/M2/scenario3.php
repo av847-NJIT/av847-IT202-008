@@ -29,6 +29,9 @@ function bePositive($arr, $arrayNumber)
     $output = array_fill(0, count($arr), null); // Initialize output array
     // Start Solution Edits
     
+    // Step1: create a for loop going through each element of the array
+    // Step2: for each element find the absolute value of it and store each new positive value in output array
+    // Step3: display the output array
 
     // End Solution Edits
     printScenario3Output($output);
