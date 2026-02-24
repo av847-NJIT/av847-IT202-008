@@ -32,6 +32,11 @@ function sumValues($arr, $arrayNumber)
     // Start Solution Edits
     // Solve Challenge 1 here: Sum all values
 
+    // Step 1: create for loop going through each element in array
+    // Step 2: add each element into the total variable
+    // Step 3: Using the round function, make the total be represented by 2 decimal places
+
+    
 
     // Solve Challenge 2 here: Format to 2 decimal places
     $modifiedTotal = "?";
