@@ -34,10 +34,10 @@ function printOdds($arr, $arrayNumber)
     // Step 3: if the number is odd, Type cast the integer into a string and store
     // it into the variable
 
-    foreach($arr as $arrayNumber)
+    foreach($arr as $num)
     {
-        if($arrayNumber % 2 != 0){
-            $output_result = (string)$arrayNumber;
+        if($num % 2 != 0){
+            $output_result .= (string)$num . ", "; // add each odd number to variable separated by comma and space
         }
     }
    
