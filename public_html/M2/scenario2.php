@@ -34,7 +34,7 @@ function sumValues($arr, $arrayNumber)
 
     // Step 1: create for loop going through each element in array
     // Step 2: add each element into the total variable
-    // Step 3: Using the round function, store that result in modified total variable
+    // Step 3: Using the number_format function, store that result in modified total variable
 
     foreach($arr as $num)
     {
@@ -42,7 +42,7 @@ function sumValues($arr, $arrayNumber)
     }
 
     // Solve Challenge 2 here: Format to 2 decimal places
-    $modifiedTotal = round($total, 2);
+    $modifiedTotal = number_format($total, 2);
 
     // End Solution Edits
     printScenario2Output($total, $modifiedTotal);
