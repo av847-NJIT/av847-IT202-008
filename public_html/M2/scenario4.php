@@ -36,13 +36,13 @@ function transformText($arr, $arrayNumber) {
         // Step 2: Add/commit your outline of comments (required for full credit)
         // Step 3: Add code to solve the problem (add/commit as needed)
         
+        // UCID- av847; 2/24/2026
         //Step1: Initialize a variable with non-alphanumeric variables
-        //Step1: Iterating through each element Use the preg_replace function, to clean up elements in array 
-        //Step2: store into a text variable
-        //Step3: Using the ucwords function, convert the text to title case
-        //Step4: using the trim function, trim the text and re assign the variable
-        //Step5: Use preg_replace to remove duplicate spaces between words
-        //Step6: 
+        //Step2: Iterating through each element Use the preg_replace function, to clean up elements in array 
+        //Step3: store into a text variable
+        //Step4: Using the ucwords function, convert the text to title case
+        //Step5: using the trim function, trim the text and re assign the variable
+        //Step6: Use preg_replace to remove duplicate spaces between words
 
         $nonAlphaNum = '/[^a-zA-Z0-9 ]/';
 

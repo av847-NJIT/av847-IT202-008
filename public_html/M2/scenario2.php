@@ -32,6 +32,7 @@ function sumValues($arr, $arrayNumber)
     // Start Solution Edits
     // Solve Challenge 1 here: Sum all values
 
+    // UCID- av847; 2/24/2026
     // Step 1: create for loop going through each element in array
     // Step 2: add each element into the total variable
     // Step 3: Using the number_format function, store that result in modified total variable

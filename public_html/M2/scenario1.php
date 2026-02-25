@@ -29,6 +29,7 @@ function printOdds($arr, $arrayNumber)
     // Start Solution Edits
     // set solution to $output_result variable
 
+    // UCID- av847; 2/24/2026
     // Step 1: create a for loop to iterate through each element in the array
     // Step 2: for each element, check if the number is odd (num %2 != 0)
     // Step 3: if the number is odd, Type cast the integer into a string and store
