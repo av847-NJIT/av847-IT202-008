@@ -134,15 +134,17 @@ Requirements:
     }
 
     .carousel-container{
-        display: flex;
         height: 100%;
     }
 
     .panel{
-        min-width: 100%;
         height: 100%;
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
+    }
+
+    .panel.active{
+        display: flex;
     }
 </style>
