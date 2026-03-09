@@ -77,8 +77,71 @@ Requirements:
 
 <script>
     /* Solve the button logic here by finding and attaching an appropriate event listener and logic*/
+    /*Step1: Grab elements */
+    /*Step2: Track the current panel */
+    /*Step3: Write to the goTo function */
+    /*Step4: Attach the click listeners to the buttons*/
+    /*Step5: Add the mouse swipe */
+
+    const panels = document.querySelectorAll('.panel');
+    const buttons = document.querySelectorAll('nav:last-of-type button');
+    let current = 0;
+
+    panels[0].classList.add('active');
+
+    function goTo(index){
+        panels[current].classList.remove('active');
+        if(index < 0)
+            index = panels.length - 1;
+        if(index >= panels.length)
+            index = 0;
+
+        current = index;
+        panels[current].classList.add('active');
+    }
+    /*Attach button listeners */
+    buttons[0].addEventListener('click', () => goTo(current - 1));
+    buttons[1].addEventListener('click', () => goTo(current + 1));
+    
 </script>
 
 <style>
     /* You're free to make whatever edits you need here, just don't override anything in the styles.css */
+    /*Step1: Make the body a vertical flex container */
+    /*Step2: Center the buttons and make the carousel full width*/
+    /*Step3: Set up carousel */
+    /*Step4: Size each panel*/
+    
+    body.challenge3{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    nav:last-of-type{
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .carousel{
+        width: 100%;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .carousel-container{
+        display: flex;
+        height: 100%;
+    }
+
+    .panel{
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
