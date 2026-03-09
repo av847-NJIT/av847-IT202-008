@@ -36,7 +36,7 @@ Requirements:
         </ul>
     </nav>
     <!-- Edit your UCID here -->
-    <header>Header Section (mt85)</header>
+    <header>Header Section (av847)</header>
     <!-- Don't make any other edits to the HTML -->
     <div class="container">
         <aside id="left-sidebar">
@@ -96,8 +96,58 @@ Requirements:
 
 <script>
     /* Solve the button logic here by finding and attaching an appropriate event listener and logic*/
+    /* Step1: Grab the left and right-sidebar*/
+    /* Step2: Use .querySelector to get it's button*/
+    /* Step3: Use addEventListener method to each button*/
+    /* Step4: Use the classList.toggle method on each sidebar to add class if it's missing and removes it if it's there*/
+    const leftSideBar = document.getElementByID('left-sidebar');
+    const rightSideBar = document.getElementByID('right-sidebar');
+    
+    const leftBtn = leftSideBar.querySelector('button');
+    const rightBtn = rightSideBar.querySelector('button');
+
+    leftBtn.addEventListener('click', () => {
+        leftSideBar.classList.toggle('collapsed');
+    });
+
+    rightBtn.addEventListener('click', () => {
+        rightSideBar.classList.toggle('collapsed');
+    });
+    
 </script>
 
 <style>
     /* You're free to make whatever edits you need here, just don't override anything in the styles.css */
+    /* Step1: Make the body a vertical flex container */
+    /* Step2: Make the container a horizontal flex row */
+    /* Step3: Size the sidebars and main content in code */
+    /* Step4: Using the .collapsed class, create a collapsed state for sidebars*/ 
+
+    body.challenge2{
+        display: flex;
+        flex-direction: colomn;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .container{
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    #left-sidebar, #right-sidebar{
+        width: 15%;
+        overflow-y: auto;
+    }
+
+    #left-sidebar.collapsed, #right-sidebar.collapsed{
+        width: 0;
+    }
+
+    main.content{
+        flex: 1;
+        overflow-y: auto;
+    }
 </style>
