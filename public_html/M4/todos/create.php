@@ -18,7 +18,21 @@ if (empty($diff)) {
     // When not valid, provide a user-friendly message of what specifically was wrong and set $is_valid to false.
     // Assigned should check for "self" if a valid format/value isn't provided.
     // Start validations
-    // can edit here
+    // Step 1: If, if else statements to validate incoming data
+    //       Provide user friendly message if message is not valid 
+    // Task validations
+    $user_message = [];
+    if(empty(trim($task))){
+        $user_message = "Task description is empty. Please fill out description.";
+        $is_valid = false;
+    }
+    
+    elseif(strlen(trim($task) > 128)){
+        $user_message = "Task description must be less than 128 characters";
+        $is_valid = false;
+    }
+    
+
     // End validations
 
     
