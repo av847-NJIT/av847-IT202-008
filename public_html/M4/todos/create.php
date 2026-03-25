@@ -95,15 +95,13 @@ if (empty($diff)) {
                     <label for= "task"> Task </label>
                     <input type = "text" id="task" name="task"
                         maxlength = "128"
-                        value = "<?= htmlspecialchars($_GET['task'] ?? '') ?>"
-                        required />   
+                        value = "<?= htmlspecialchars($_GET['task'] ?? '') ?>" />   
                 </div>
 
                 <div> 
                     <label for= "due"> Due Date </label>
                     <input type = "date" id= "due" name = "due"
-                        value = "<?= htmlspecialchars($_GET['due'] ?? '') ?>"
-                        required />
+                        value = "<?= htmlspecialchars($_GET['due'] ?? '') ?>" />
                 </div>
 
                 <div> 
