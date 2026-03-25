@@ -104,9 +104,6 @@ if (empty($diff)) {
                     <input type = "date" id= "due" name = "due"
                         value = "<?= htmlspecialchars($_GET['due'] ?? '') ?>"
                         required />
-
-
-
                 </div>
 
                 <div> 
