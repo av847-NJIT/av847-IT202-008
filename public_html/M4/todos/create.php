@@ -55,8 +55,8 @@ if (empty($diff)) {
         Ensure valid and proper PDO named placeholders are used.
         https://phpdelusions.net/pdo
         */
-        $query = "INSERT INTO M4_TODOS (task, due, assigned) VALUES(:task, :due, :assigned)";
-        $params = [ ":task" =>trim($task), ":due" => $due,":assigned => trim($assigned)"]; // Apply the proper PDO placeholder to variable mapping here
+        $query = "INSERT INTO M4_Todos (task, due, assigned) VALUES(:task, :due, :assigned)";
+        $params = [":task" => trim($task), ":due" => $due,":assigned" => trim($assigned)]; // Apply the proper PDO placeholder to variable mapping here
         try {
             $db = getDB();
             $stmt = $db->prepare($query);
