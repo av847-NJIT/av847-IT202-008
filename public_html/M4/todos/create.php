@@ -23,15 +23,30 @@ if (empty($diff)) {
     // Task validations
     $user_message = [];
     if(empty(trim($task))){
-        $user_message = "Task description is empty. Please fill out description.";
+        $user_message[] = "Task description is empty. Please fill out description.";
         $is_valid = false;
     }
     
     elseif(strlen(trim($task) > 128)){
-        $user_message = "Task description must be less than 128 characters";
+        $user_message[]= "Task description must be less than 128 characters";
         $is_valid = false;
     }
-    
+
+    // due validation
+    $date = DateTime::createFromFormat('Y-m-d', $due);
+    if(!$date || $date->format('Y-m-d') != $due){
+        $user_message[] = "The due date is not in a valid date format (YYYY-MM-DD";
+        $is_valid = false;
+    }
+
+    // assigned validations
+    if(empty(trim($assigned))){
+        $assigned = "self";
+    }
+    if(strlen(trim($assigned)) > 60){
+        $user_message[] = "The assigned value must be 60 characters or fewer";
+        $is_valid = false;
+    }
 
     // End validations
 
@@ -42,8 +57,8 @@ if (empty($diff)) {
         Ensure valid and proper PDO named placeholders are used.
         https://phpdelusions.net/pdo
         */
-        $query = ""; // edit this
-        $params = []; // Apply the proper PDO placeholder to variable mapping here
+        $query = "INSERT INTO M4_TODOS (task, due, assigned) VALUES(:task, :due, :assigned)";
+        $params = [ ":task" =>trim($task), ":due" => $due,":assigned => trim($assigned)"]; // Apply the proper PDO placeholder to variable mapping here
         try {
             $db = getDB();
             $stmt = $db->prepare($query);
@@ -72,12 +87,36 @@ if (empty($diff)) {
     <?php require_once(__DIR__ . "/../nav.php"); ?>
     <section>
         <h2>Create ToDo </h2>
-        <form>
+        <form method = "GET">
             <!-- design the form with proper labels and input fields with the correct types based on the SQL table.
              Wrap each label/input pair in a div tag.
              For "Assigned" ensure the default value is "self". -->
-          
+                <div>
+                    <label for= "task"> Task </label>
+                    <input type = "text" id="task" name="task"
+                        maxlength = "128"
+                        value = "<?= htmlspecialchars($_GET['task'] ?? '') ?>"
+                        required />   
+                </div>
+
+                <div> 
+                    <label for= "due"> Due Date </label>
+                    <input type = "date" id= "due" name = "due"
+                        value = "<?= htmlspecialchars($_GET['due'] ?? '') ?>"
+                        required />
+
+
+
+                </div>
+
+                <div> 
+                    <label for="assigned" > Assigned </label>
+                    <input type = "text" id = "assigned" name = "assigned"
+                        maxlength = "60"
+                        value = "<?= htmlspecialchars($_GET['assigned'] ?? 'self') ?>" />
+                </div>
             <div>
+
                 <input type="submit" />
             </div>
         </form>
