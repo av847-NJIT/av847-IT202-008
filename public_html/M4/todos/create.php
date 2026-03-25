@@ -27,7 +27,7 @@ if (empty($diff)) {
         $is_valid = false;
     }
     
-    elseif(strlen(trim($task) > 128)){
+    elseif(strlen(trim($task)) > 128){
         $user_message[]= "Task description must be less than 128 characters";
         $is_valid = false;
     }
@@ -47,10 +47,8 @@ if (empty($diff)) {
         $user_message[] = "The assigned value must be 60 characters or fewer";
         $is_valid = false;
     }
-
     // End validations
 
-    
     if ($is_valid) {
         /*
         Design a query to insert the incoming data to the proper columns.
