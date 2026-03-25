@@ -35,7 +35,7 @@ For Actions, this isn't part of the query and there's nothing special to select 
 Filter the results where the todo item is NOT completed and order the results by those due the soonest.
 No limit is required.
 */
-$query = "SELECT id, task, due, DATEDIFF(due, CURRENT_DATE) AS days_offset, assigned FROM M4_TODOS WHERE is_complete = 0 ORDER BY DUE ASC"; // edit this
+$query = "SELECT id, task, due, DATEDIFF(due, CURRENT_DATE) AS days_offset, assigned FROM M4_Todos WHERE is_complete = 0 ORDER BY DUE ASC"; // edit this
 $results = [];
 try {
     $stmt = $db->prepare($query);

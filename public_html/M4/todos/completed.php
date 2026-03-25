@@ -11,7 +11,7 @@ For the Status part, you'll need to calculate the "days_offset" from the complet
 Filter the results where the todo item is completed and order the results by most recently completed and most recently due.
 No limit is required.
 */
-$query = "SELECT id, task, due, Date(completed) AS completed, DATEDIFF(due, DATE(completed)) AS days_offset, assigned, FROM M4 TODOS WHERE is_complete = 1 ORDER BY completed DESC, due DESC"; // edit this
+$query = "SELECT id, task, due, Date(completed) AS completed, DATEDIFF(due, DATE(completed)) AS days_offset, assigned, FROM M4_Todos WHERE is_complete = 1 ORDER BY completed DESC, due DESC"; // edit this
 $results = [];
 try {
     $stmt = $db->prepare($query);
