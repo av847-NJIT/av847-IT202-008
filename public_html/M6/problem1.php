@@ -35,7 +35,7 @@ function processBirds($birds)
     // Step2: Create new entry for subset[] with the requested data(name, color, region)
 
     foreach($birds as $bird){
-        $subset = ["name" => $bird["name"], "color" => $bird["color"], "region" => $bird["region"]];
+        $subset[] = ["name" => $bird["name"], "color" => $bird["color"], "region" => $bird["region"]];
     }
 
     // End edits
