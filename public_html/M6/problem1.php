@@ -41,7 +41,7 @@ function processBirds($birds)
     // End edits
     echo "<pre>" . var_export($subset, true) . "</pre>";
 }
-$ucid = "mt85"; // replace with your UCID
+$ucid = "av847"; // replace with your UCID
 printHeader($ucid, 1);
 ?>
 <table>
