@@ -30,10 +30,12 @@ function processBirds($birds)
     $subset = []; // result array
     // Start edits
     // UCID: av847; Date: 03/29/2026
-    // Step1: Create a for loop to iterate through each element in array
+    // Step1: Create a foreach loop to iterate through each element in array
     // Step2: Create new entry for subset[] with the requested data(name, color, region)
-    
 
+    foreach($birds as $bird){
+        $subset = ["name" => $bird["name"], "color" => $bird["color"], "region" => $bird["region"]];
+    }
 
     // End edits
     echo "<pre>" . var_export($subset, true) . "</pre>";
