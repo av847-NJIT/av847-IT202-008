@@ -29,6 +29,7 @@ function processBirds($birds)
     // TODO Objective: Extract the name, color, region into a separate multi-dimension array called $subset
     $subset = []; // result array
     // Start edits
+    
     // UCID: av847; Date: 03/29/2026
     // Step1: Create a foreach loop to iterate through each element in array
     // Step2: Create new entry for subset[] with the requested data(name, color, region)
