@@ -52,12 +52,27 @@ function joinArrays($users, $activities)
     $joined = []; // result array
     // Start edits
 
+    // Step1: Create a foreach loop iterating through $users
+    // Step2: Create an inner foreach loop going through $activities
+    // Step3: if statement determining if the $user[id] matches with $activities[id]
+    // Step4: Use array_merge function to merge the user array with the corresponding activity and assign it to $joined array
+
+    foreach($users as $user){
+        foreach($activities as $activity){
+            if($user["userId"] === $activity["userId"]){
+                $joined[] = array_merge($user, ["activity" => $activity["activity"]]);
+                break; // break out of inner loop after activity is matched
+            }
+        }
+    }
+
+
 
     // End edits
     echo "<pre>" . var_export($joined, true) . "</pre>";
 }
 
-$ucid = "mt85"; // replace with your UCID
+$ucid = "av847"; // replace with your UCID
 printHeader($ucid, 3);
 ?>
 <table>
