@@ -32,10 +32,31 @@ function processCars($cars)
     $classic_age = 25; // don't change this value
     // Start edits
 
+    // UCID: av847; Date: 03/29/2026
+    // Step1: Create foreach loop to iterate through each element in MD array with new properties
+    // Step2: Establish current year using date() function
+    // Step3: Determine age: $age = current year - car["year"]
+    // Step4: Determine if car is classic: $age >= $classic_age
+    // Step5: Insert original content plus $age and $isClassic variables to result array $processed_cars
+    
+    
+    foreach($cars as $car){
+        $currentYear = date("Y");
+        $age = $currentYear - $car["year"];
+        $isClassic = $age >= $classic_age;
+        $processedCars[] = ["id" => $car["id"], 
+                            "make" => $car["make"], 
+                            "model" => $car["model"], 
+                            "year" => $car["year"], 
+                            "age" => $age, 
+                            "isClassic" => $isClassic
+                            ];
+    }
+
     // End edits
     echo "<pre>" . var_export($processedCars, true) . "</pre>";
 }
-$ucid = "mt85"; // replace with your UCID
+$ucid = "av847"; // replace with your UCID
 printHeader($ucid, 2);
 ?>
 <table>
