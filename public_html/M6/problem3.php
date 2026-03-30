@@ -55,7 +55,8 @@ function joinArrays($users, $activities)
     // Step1: Create a foreach loop iterating through $users
     // Step2: Create an inner foreach loop going through $activities
     // Step3: if statement determining if the $user[id] matches with $activities[id]
-    // Step4: Use array_merge function to merge the user array with the corresponding activity and assign it to $joined array
+    // Step4: Use array_merge function to merge the user array with the corresponding activity and 
+    // assign it to $joined array
 
     foreach($users as $user){
         foreach($activities as $activity){
@@ -65,7 +66,7 @@ function joinArrays($users, $activities)
             }
         }
     }
-    
+
     // End edits
     echo "<pre>" . var_export($joined, true) . "</pre>";
 }
