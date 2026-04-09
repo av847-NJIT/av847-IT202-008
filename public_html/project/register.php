@@ -42,8 +42,8 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"])) {
     }
 
     // Sanitize and validate email
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $email = sanitize_email($email);
+    if (!is_valid_email($email)) {
         echo "Invalid email address<br>";
         $hasError = true;
     }
@@ -68,21 +68,19 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"])) {
         $hasError = true;
     }
 
-    if (!$hasError){
+    if (!$hasError) {
         // TODO 4: Hash password before storing
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);   
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB(); // available due to the `require()` of `functions.php` 
         // Code for inserting user data into the database
-        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES (:email, :password)"); 
-        try{
-            $stmt->execute([':email' => $email, ':password' => $hashed_password]); 
+        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES (:email, :password)");
+        try {
+            $stmt->execute([':email' => $email, ':password' => $hashed_password]);
             echo "Successfully registered!";
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             echo "There was an error registering<br>"; // user-friendly message
             error_log("Registration Error: " . var_export($e, true)); // log the technical error for debugging
         }
-
     }
 }
 ?>
