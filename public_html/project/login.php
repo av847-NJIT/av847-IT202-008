@@ -66,6 +66,7 @@ if (isset($_POST["email"], $_POST["password"])) {
                     unset($user["password"]);
                     if (password_verify($password, $hash)) {
                         echo "Welcome, $email!<br>";
+                        $_SESSION["user"] = $user; // add the data to the active session
                     } else {
                         echo "Invalid password<br>";
                     }
