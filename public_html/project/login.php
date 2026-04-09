@@ -67,6 +67,8 @@ if (isset($_POST["email"], $_POST["password"])) {
                     if (password_verify($password, $hash)) {
                         echo "Welcome, $email!<br>";
                         $_SESSION["user"] = $user; // add the data to the active session
+                        header("Location: landing.php");
+                        die(); // stop script execution after header
                     } else {
                         echo "Invalid password<br>";
                     }
