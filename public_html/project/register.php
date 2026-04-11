@@ -54,6 +54,7 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["usernam
         flash("Invalid email address.", "danger");
         $hasError = true;
     }
+    
     if (!preg_match('/^[a-z0-9-_]{3,30}$/', $username)) {
         flash("Username must be lowercase, alphanumerical, can only contain _ or -, and be between 3 to 30 characters", "danger");
         $hasError = true;
