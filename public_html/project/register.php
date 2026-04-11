@@ -1,7 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 ?>
-
 <h3>Register</h3>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -32,7 +31,7 @@ require(__DIR__ . "/../../partials/nav.php");
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["username"])) {
+if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $_POST["username"])) {
 
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
@@ -46,7 +45,6 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["usernam
         flash("Email must not be empty.", "danger");
         $hasError = true;
     }
-
     // Sanitize and validate email
     $email = sanitize_email($email);
     if (!is_valid_email($email)) {
@@ -54,14 +52,11 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["usernam
         flash("Invalid email address.", "danger");
         $hasError = true;
     }
-    
     if (!preg_match('/^[a-z0-9-_]{3,30}$/', $username)) {
         flash("Username must be lowercase, alphanumerical, can only contain _ or -, and be between 3 to 30 characters", "danger");
         $hasError = true;
     }
-
     if (empty($password)) {
-
         //echo "Password must not be empty<br>";
         flash("Password must not be empty.", "danger");
         $hasError = true;
@@ -86,14 +81,14 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["usernam
     }
 
     if (!$hasError) {
-        // TODO 4: Hash password before storing
+        // TODO 4: Hash password and store record in DB
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-        $db = getDB(); // available due to the `require()` of `functions.php` 
+        $db = getDB(); // available due to the `require()` of `functions.php`
         // Code for inserting user data into the database
         $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES (:email, :password, :username)");
         try {
             $stmt->execute([':email' => $email, ':password' => $hashed_password, ':username' => $username]);
-            //echo "Successfully registered!";
+            //echo "Successfully registered!<br>";
             flash("Successfully registered! You can now log in.", "success");
         } catch (Exception $e) {
             //echo "There was an error registering<br>"; // user-friendly message
@@ -103,7 +98,6 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $POST["usernam
     }
 }
 ?>
-
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
