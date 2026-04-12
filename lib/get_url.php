@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Used to handle app urls to ensure proper path (absolute/relative)
  * 
@@ -15,10 +16,9 @@ function get_url($dest, $isEcho = false)
         //handle relative path
         $dest = "$BASE_PATH/$dest";
     }
-    if($isEcho){
+    if ($isEcho) {
         echo $dest;
         return;
     }
     return $dest;
-
 }
