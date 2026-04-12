@@ -179,7 +179,7 @@ if (isset($_POST["currentPassword"], $_POST["newPassword"], $_POST["confirmPassw
         let pw = form.newPassword.value;
         let con = form.confirmPassword.value;
         let isValid = true;
-        //TODO add other client side validation....
+        // add other client side validation....
         let email = form.email.value.trim();
         let username = form.username.value.trim();
         let currentPw = form.currentPassword.value;

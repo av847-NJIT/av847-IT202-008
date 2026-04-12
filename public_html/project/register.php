@@ -25,6 +25,33 @@ require(__DIR__ . "/../../partials/nav.php");
     function validate(form) {
         //TODO 1: implement JavaScript validation (you'll do this on your own towards the end of Milestone1)
         //ensure it returns false for an error and true for success
+        let email = form.email.value.trim();
+        let username = form.username.value.trim();
+        let pw = form.password.value;
+        let con = form.confirm.value;
+        
+        if (!email) {
+            flash("Email must not be empty.", "danger");
+            return false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            flash("Invalid email address.", "danger");
+            return false;
+        }
+        const usernameRegex = /^[a-z0-9_-]+$/;
+        if (!usernameRegex.test(username)) {
+            flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "danger");
+            return false;
+        }
+        if (pw.length < 8) {
+            flash("Password must be at least 8 characters long", "danger");
+            return false;
+        }
+        if (pw !== con) {
+            flash("Passwords must match", "danger");
+            return false;
+        }
 
         return true;
     }
