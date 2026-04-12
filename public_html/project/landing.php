@@ -6,9 +6,8 @@ error_log("Session: " . var_export($_SESSION, true));
 
 <?php if (is_logged_in(true)): ?>
     <p>Welcome, <?php echo get_username() ?>!</p>
-<?php endif; ?>
+<?php endif;?>
 
 <?php
 require(__DIR__ . "/../../partials/flash.php");
-?>
 ?>

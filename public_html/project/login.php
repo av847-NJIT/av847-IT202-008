@@ -70,6 +70,18 @@ if (isset($_POST["email"], $_POST["password"])) {
                         if (password_verify($password, $hash)) {
 
                             $_SESSION["user"] = $user; // add the data to the active session
+                            try {
+                                //lookup potential roles
+                                $stmt = $db->prepare("SELECT Roles.name FROM Roles
+                                JOIN UserRoles on Roles.id = UserRoles.role_id
+                                where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
+                                $stmt->execute([":user_id" => $user["id"]]);
+                                $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
+                            } catch (Exception $e) {
+                                error_log("Error fetching roles: " . var_export($e, true));
+                            }
+                            //save roles or empty array
+                            $_SESSION["user"]["roles"] = isset($roles) ? $roles : [];
                             die(header("Location: landing.php"));
                         } else {
                             //echo "Invalid password<br>";
