@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Temp fix to resolve output buffer issues that send the header() early that cause issues with the header("Location:...") below
 require(__DIR__ . "/../../partials/nav.php");
 ?>
 <h3>Login</h3>
@@ -13,7 +14,6 @@ require(__DIR__ . "/../../partials/nav.php");
     </div>
     <input type="submit" value="Login" />
 </form>
-
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation (you'll do this on your own towards the end of Milestone1)
@@ -22,7 +22,6 @@ require(__DIR__ . "/../../partials/nav.php");
         return true;
     }
 </script>
-
 <?php
 //TODO 2: add PHP Code
 if (isset($_POST["email"], $_POST["password"])) {
@@ -47,40 +46,48 @@ if (isset($_POST["email"], $_POST["password"])) {
         $hasError = true;
     }
 
-    if (strlen($password) < 8) {
+    if (!is_valid_password($password)) {
+        //echo "Password too short<br>";
         flash("Password must be at least 8 characters long.", "danger");
         $hasError = true;
     }
 
     if (!$hasError) {
-        //TODO 4: Check password and fetch user
-        $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, password from Users where email = :email");
-        try {
-            $r = $stmt->execute([":email" => $email]);
-            if ($r) {
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
-                $ambigify = false; // flag to indicate ambiguous login attempt (reduce TMI)
-                if ($user) {
-                    $hash = $user["password"];
-                    unset($user["password"]);
-                    if (password_verify($password, $hash)) {
-                        //echo "Welcome, $email!<br>";
-                        $_SESSION["user"] = $user; // add the data to the active session
-                        die(header("Location: landing.php"));
+
+        // TODO 4: Check password and fetch user
+        if (!$hasError) {
+            //TODO 4: Check password and fetch user
+            $db = getDB();
+            $stmt = $db->prepare("SELECT id, email, password, username from Users where email = :email");
+            try {
+                $r = $stmt->execute([":email" => $email]);
+                if ($r) {
+                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $ambigify = false; // flag to indicate ambiguous login attempt (reduce TMI)
+                    if ($user) {
+                        $hash = $user["password"];
+                        unset($user["password"]);
+                        if (password_verify($password, $hash)) {
+
+                            $_SESSION["user"] = $user; // add the data to the active session
+                            die(header("Location: landing.php"));
+                        } else {
+                            //echo "Invalid password<br>";
+                            $ambigify = true; // ambiguous login attempt
+                        }
                     } else {
+                        //echo "Email not found<br>";
                         $ambigify = true; // ambiguous login attempt
                     }
-                } else {
-                    $ambigify = true; // ambiguous login attempt
+                    if ($ambigify) {
+                        flash("Invalid login attempt. Please check your email and password.", "danger");
+                    }
                 }
-                if ($ambigify) {
-                    flash("Invalid login attempt. Please check your email and password.", "danger");
-                }
+            } catch (Exception $e) {
+                //echo "There was an error logging in<br>"; // user-friendly message
+                flash("There was an error logging in. Please try again later.", "danger");
+                error_log("Login Error: " . var_export($e, true)); // log the technical error for debugging
             }
-        } catch (Exception $e) {
-            flash("There was an error logging in. Please try again later.", "danger");
-            error_log("Login Error: " . var_export($e, true)); // log the technical error for debugging
         }
     }
 }

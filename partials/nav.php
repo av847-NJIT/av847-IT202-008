@@ -20,6 +20,9 @@ session_start();
 require(__DIR__ . "/../lib/functions.php");
 ?>
 
+<link rel="stylesheet" href="<?php echo $BASE_PATH; ?>/styles.css">
+<script src="<?php echo $BASE_PATH; ?>/helpers.js"></script>
+
 <nav>
     <ul>
         <!-- new content below -->
