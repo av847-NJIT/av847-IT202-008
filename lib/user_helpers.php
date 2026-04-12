@@ -34,6 +34,7 @@ function get_username()
     }
     return "";
 }
+// Return the current user's email or empty string
 function get_user_email()
 {
     if (is_logged_in()) { //we need to check for login first because "user" key may not exist
@@ -41,6 +42,7 @@ function get_user_email()
     }
     return "";
 }
+// Return the current user's id or -1
 function get_user_id()
 {
     if (is_logged_in()) { //we need to check for login first because "user" key may not exist
