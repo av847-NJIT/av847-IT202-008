@@ -180,13 +180,44 @@ if (isset($_POST["currentPassword"], $_POST["newPassword"], $_POST["confirmPassw
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
+        let email = form.email.value.trim();
+        let username = form.username.value.trim();
+        let currentPw = form.currentPassword.value;
+
+        // This validates the email
+        if (!email) {
+            flash("Email must not be empty.", "danger");
+            isValid = false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            flash("Invalid email address.", "danger");
+            isValid = false;
+        }
+
+        // This validates username
+        const usernameRegex = /^[a-z0-9_-]+$/;
+        if (!usernameRegex.test(username)) {
+            flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "danger");
+            isValid = false;
+        }
 
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
         // NOTE: we'll extract the flash code to a function later
-        if (pw !== con) { // first JS validation example
-            flash("Password and confirm password must match", "danger");
-            isValid = false;
+        if (currentPw || pw || con) {
+            if (!currentPw) {
+                flash("Current password must not be empty", "danger");
+                isValid = false;
+            }
+            if (pw.length < 8) {
+                flash("Password must be at least 8 characters long", "danger");
+                isValid = false;
+            }
+            if (pw !== con) { // first JS validation example
+                flash("Password and confirm password must match", "danger");
+                isValid = false;
+            }
         }
         // returning false will prevent the form from submitting
         return isValid;
