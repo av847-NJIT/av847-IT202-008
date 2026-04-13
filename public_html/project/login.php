@@ -14,43 +14,35 @@ require(__DIR__ . "/../../partials/nav.php");
     </div>
     <input type="submit" value="Login" />
 </form>
+
 <script>
     function validate(form) {
         //implement JavaScript validation (you'll do this on your own towards the end of Milestone1)
         //ensure it returns false for an error and true for success
-        const email = form.email.value.trim();
-        const password = form.password.value;
+        let email = form.email.value.trim();
+        let password = form.password.value;
 
-        if(!email){
-            flash("Email/Username must not be empty", "danger");
-            return false;
-        }
-        if(email.includes("@")){
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if(!emailRegex.test(email)){
-                flash("Invalid email address", "danger");
+        if (email.includes("@")) {
+            if (!isValidEmail(email)) {
+                flash("Invalid email address.", "warning");
                 return false;
             }
-        } else{
-            const usernameRegex = /^[a-z0-9_-]+$/;
-            if(!usernameRegex.test(email)){
-                flash("Username must be lowercase,alphanumerical, and can only contain _ or -", "danger");
+        } else {
+            if (!isValidUsername(email)) {
+                flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "warning");
                 return false;
             }
         }
 
-        if(!password){
-            flash("Password must not be empty.", "danger");
-            return false;
-        }
-        if(password.length < 8){
-            flash("Password must be at least 8 characters long.", "danger");
+        if (!isValidPassword(password)) {
+            flash("Password must be at least 8 characters long.", "warning");
             return false;
         }
 
         return true;
     }
 </script>
+
 <?php
 // add PHP Code
 if (isset($_POST["email"], $_POST["password"])) {

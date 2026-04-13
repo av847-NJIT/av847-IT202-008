@@ -29,31 +29,26 @@ require(__DIR__ . "/../../partials/nav.php");
         let username = form.username.value.trim();
         let pw = form.password.value;
         let con = form.confirm.value;
-        
-        if (!email) {
-            flash("Email must not be empty.", "danger");
-            return false;
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
+
+        if (!isValidEmail(email)) {
             flash("Invalid email address.", "danger");
             return false;
         }
-        const usernameRegex = /^[a-z0-9_-]+$/;
-        if (!usernameRegex.test(username)) {
-            flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "danger");
+        if (!isValidUsername(username)) {
+            flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "warning");
             return false;
         }
-        if (pw.length < 8) {
-            flash("Password must be at least 8 characters long", "danger");
+        if (!isValidPassword(pw)) {
+            flash("Password must be at least 8 characters long.", "warning");
             return false;
         }
-        if (pw !== con) {
-            flash("Passwords must match", "danger");
+        if (!isValidConfirm(pw, con)) {
+            flash("Passwords must match.", "warning");
             return false;
         }
 
         return true;
+
     }
 </script>
 <?php
