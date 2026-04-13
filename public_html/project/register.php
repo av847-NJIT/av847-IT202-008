@@ -21,7 +21,7 @@ require(__DIR__ . "/../../partials/nav.php");
     </div>
     <input type="submit" value="Register" />
 </form>
-<script>/*
+<script>
     function validate(form) {
         //TODO 1: implement JavaScript validation (you'll do this on your own towards the end of Milestone1)
         //ensure it returns false for an error and true for success
