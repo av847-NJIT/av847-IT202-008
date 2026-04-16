@@ -2,7 +2,7 @@
 require("nav.php");
 $db = getDB();
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT * FROM Samples LIMIT 500"; //TODO change table name and desired columns
+$query = "SELECT * FROM M4_Todos LIMIT 500"; //TODO change table name and desired columns
 // if columns get changed, ensure `id` is included as this example assumes it exists
 $stmt = $db->prepare($query);
 $results = [];
