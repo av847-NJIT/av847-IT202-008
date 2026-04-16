@@ -6,7 +6,7 @@ require("nav.php");
 $db = getDB();
 //let's insert a new record if the form was submitted
 if (isset($_POST["submit"])) {
-    $query = "INSERT INTO Samples "; //TODO change the table name to test others you have
+    $query = "INSERT INTO M4_Todos"; //TODO change the table name to test others you have
     // remove the submit key from the post data
     $columns = array_filter(array_keys($_POST), function ($x) {
         return $x !== "submit";
@@ -37,7 +37,7 @@ if (isset($_POST["submit"])) {
 
 //using show columns let's get the table definition
 
-$query = "SHOW COLUMNS from Samples"; //TODO change table name to test others you have
+$query = "SHOW COLUMNS from M4_Todos"; //TODO change table name to test others you have
 $stmt = $db->prepare($query);
 $results = [];
 try {
@@ -46,7 +46,7 @@ try {
 } catch (PDOException $e) {
     echo "<pre>" . var_export($e, true) . "</pre>";
 }
-$ignore_columns = ["id", "created", "modified"];
+$ignore_columns = ["id", "created", "modified", "completed"];
 ?>
 <h3>Create Sample</h3>
 <form method="POST">
