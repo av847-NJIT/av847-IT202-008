@@ -6,7 +6,7 @@ if ($id === -1) {
     echo 'You must pass a query parameter ($_GET) of the id you want to work with.';
     return;
 }
-$table_name = "Samples"; //TODO change table name to test others you have (don't make this user-entered)
+$table_name = "M4_Todos"; //TODO change table name to test others you have (don't make this user-entered)
 $db = getDB();
 //check if there's a change (remember, save the change, then select the fresh data, if this is swapped you'll get stale data)
 if (isset($_POST["submit"])) {
