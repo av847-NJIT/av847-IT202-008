@@ -13,7 +13,7 @@ if (isset($_POST["submit"])) {
     });
     //arrow function uses fn and doesn't have return or { }
     //https://www.php.net/manual/en/functions.arrow.php
-    $placeholders = array_map(fn ($x) => ":$x", $columns);
+    $placeholders = array_map(fn($x) => ":$x", $columns);
     $query .= "(" . join(",", $columns) . ") 
     VALUES (" . join(",", $placeholders) . ")";
     echo "SQL <pre>" . var_export($query, true) . "</pre>";
@@ -53,17 +53,17 @@ $ignore_columns = ["id", "created", "modified"];
     <?php foreach ($results as $index => $column) : ?>
         <?php /* Lazily ignoring fields with default values to avoid capturing created/modified,
         also ignoring auto_increment to avoid the id since these are all fields we don't need to provide*/ ?>
-        <?php if (!in_array(se($column,"Field","", false), $ignore_columns)) : ?>
+        <?php if (!in_array(se($column, "Field", "", false), $ignore_columns)) : ?>
             <label for="<?php se($column, "Field"); ?>"><?php se($column, "Field"); ?></label>
             <?php
-                $type = strtolower($column["Type"]);
-                echo "<!-- Type: $type -->";// debugging
-                if (strpos($type, "tinyint(1)") !== false || strpos($type, "bool") !== false || strpos($type, "boolean") !== false): ?>
-                    <input id="<?php se($column, "Field"); ?>" type="checkbox" name="<?php se($column, "Field"); ?>" value="1" />
+            $type = strtolower($column["Type"]);
+            echo "<!-- Type: $type -->"; // debugging
+            if (strpos($type, "tinyint(1)") !== false || strpos($type, "bool") !== false || strpos($type, "boolean") !== false): ?>
+                <input id="<?php se($column, "Field"); ?>" type="checkbox" name="<?php se($column, "Field"); ?>" value="1" />
             <?php elseif (strpos($type, "date") === 0): ?>
-                    <input id="<?php se($column, "Field"); ?>" type="date" name="<?php se($column, "Field"); ?>" />
+                <input id="<?php se($column, "Field"); ?>" type="date" name="<?php se($column, "Field"); ?>" />
             <?php else: ?>
-                    <input id="<?php se($column, "Field"); ?>" type="text" name="<?php se($column, "Field"); ?>" />
+                <input id="<?php se($column, "Field"); ?>" type="text" name="<?php se($column, "Field"); ?>" />
             <?php endif; ?>
         <?php endif; ?>
     <?php endforeach; ?>
