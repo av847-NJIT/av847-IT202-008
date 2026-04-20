@@ -40,7 +40,7 @@ if (isset($_GET["FighterName"])) {
         <div>
             <label>Fighter Info</label>
             <input name="symbol" />
-            <input type="submit" value="Fetch Stock" />
+            <input type="submit" value="Fetch fighter" />
         </div>
     </form>
     <div class="row ">
