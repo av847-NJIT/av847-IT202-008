@@ -4,7 +4,7 @@ require(__DIR__ . "/../../partials/nav.php");
 $result = [];
 if (isset($_GET["symbol"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
-    $data = ["function" => "GLOBAL_QUOTE", "symbol" => $_GET["symbol"], "datatype" => "json"];
+    $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
     $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/rankings/lightweight";
     $isRapidAPI = true;
     $rapidAPIHost = "ufc-api5.p.rapidapi.com";
