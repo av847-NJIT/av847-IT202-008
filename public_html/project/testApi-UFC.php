@@ -5,9 +5,11 @@ $result = [];
 if (isset($_GET["symbol"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
     $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
+
     //getFighterHistory
     // UCID: av847
     // Date: 04/20/26
+    
     $slug = $_GET["symbol"];
     $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/fighters/" . $slug . "/history";
     $isRapidAPI = true;
