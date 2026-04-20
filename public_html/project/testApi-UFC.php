@@ -6,7 +6,7 @@ if (isset($_GET["symbol"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
     $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
 
-    //getFighterHistory
+    //getFighterStats
     // UCID: av847
     // Date: 04/20/26
     
