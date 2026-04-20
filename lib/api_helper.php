@@ -59,7 +59,7 @@ function _sendRequest($url, $key, $data = [], $method = 'GET', $isRapidAPI = tru
     $response = curl_exec($curl);
     $err = curl_error($curl);
 
-    curl_close($curl);
+    //curl_close($curl);
 
     if ($err) {
         throw new Exception($err);
