@@ -5,24 +5,58 @@ $result = [];
 if (isset($_GET["symbol"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
     $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
-    $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/rankings/lightweight";
+
+    //getFighterHistory
+    // UCID: av847
+    // Date: 04/20/26
+    
+    $slug = $_GET["symbol"];
+    $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/fighters/" . $slug . "/history";
     $isRapidAPI = true;
     $rapidAPIHost = "ufc-api5.p.rapidapi.com";
     $result = get($endpoint, "UFC_API_KEY", $data, $isRapidAPI, $rapidAPIHost);
     //example of cached data to save the quotas, don't forget to comment out the get() if using the cached data for testing
     /* $result = ["status" => 200, "response" => '{
-    "Global Quote": {
-        "01. symbol": "MSFT",
-        "02. open": "420.1100",
-        "03. high": "422.3800",
-        "04. low": "417.8400",
-        "05. price": "421.4400",
-        "06. volume": "17861855",
-        "07. latest trading day": "2024-04-02",
-        "08. previous close": "424.5700",
-        "09. change": "-3.1300",
-        "10. change percent": "-0.7372%"
-    }
+    array (
+    'name' => 'Michael Morales',
+    'slug' => 'michael-morales',
+    'fights' => 
+    array (
+        0 => 
+        array (
+        'result' => 'Win',
+        'opponent' => 'Brady',
+        'opponent_slug' => 'sean-brady',
+        'event' => '',
+        'date' => 'Nov. 15, 2025',
+        'method' => 'KO/TKO',
+        'round' => '1',
+        'time' => '3:27',
+        ),
+        1 => 
+        array (
+        'result' => 'Win',
+        'opponent' => 'Burns',
+        'opponent_slug' => 'gilbert-burns',
+        'event' => '',
+        'date' => 'May. 17, 2025',
+        'method' => 'KO/TKO',
+        'round' => '1',
+        'time' => '3:39',
+        ),
+        2 => 
+        array (
+        'result' => 'Win',
+        'opponent' => 'Magny',
+        'opponent_slug' => 'neil-magny',
+        'event' => '',
+        'date' => 'Aug. 24, 2024',
+        'method' => 'KO/TKO',
+        'round' => '1',
+        'time' => '4:39',
+        ),
+    ),
+)                
 }'];*/
     error_log("Response: " . var_export($result, true));
     if (se($result, "status", 400, false) == 200 && isset($result["response"])) {
@@ -33,11 +67,11 @@ if (isset($_GET["symbol"])) {
 }
 ?>
 <div class="container-fluid">
-    <h1>Division Info</h1>
+    <h1>Fighter History</h1>
     <p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
     <form>
         <div>
-            <label>Division</label>
+            <label>Fighter</label>
             <input name="symbol" />
             <input type="submit" value="Fetch Info" />
         </div>
