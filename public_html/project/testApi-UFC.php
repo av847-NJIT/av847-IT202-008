@@ -2,13 +2,12 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $result = [];
-if (isset($_GET["FighterName"])) {
+if (isset($_GET["symbol"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
-    //$data = ["function" => "GLOBAL_QUOTE", "symbol" => $_GET["symbol"], "datatype" => "json"];
-    $fighterName = urlencode($_GET["FighterName"]);
-    $endpoint = "https://ufc-data1.p.rapidapi.com/Fighters/FindStatsByFighterName/%7BFighterName%7D";
+    $data = ["function" => "GLOBAL_QUOTE", "symbol" => $_GET["symbol"], "datatype" => "json"];
+    $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/rankings/lightweight";
     $isRapidAPI = true;
-    $rapidAPIHost = "alpha-vantage.p.rapidapi.com";
+    $rapidAPIHost = "ufc-api5.p.rapidapi.com";
     $result = get($endpoint, "UFC_API_KEY", $data, $isRapidAPI, $rapidAPIHost);
     //example of cached data to save the quotas, don't forget to comment out the get() if using the cached data for testing
     /* $result = ["status" => 200, "response" => '{
@@ -34,13 +33,13 @@ if (isset($_GET["FighterName"])) {
 }
 ?>
 <div class="container-fluid">
-    <h1>Fighter Info</h1>
+    <h1>Division Info</h1>
     <p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
     <form>
         <div>
-            <label>Fighter</label>
+            <label>Division</label>
             <input name="symbol" />
-            <input type="submit" value="Fetch fighter" />
+            <input type="submit" value="Fetch Info" />
         </div>
     </form>
     <div class="row ">
