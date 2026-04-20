@@ -38,7 +38,7 @@ if (isset($_GET["FighterName"])) {
     <p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
     <form>
         <div>
-            <label>Fighter Info</label>
+            <label>Fighter</label>
             <input name="symbol" />
             <input type="submit" value="Fetch fighter" />
         </div>
