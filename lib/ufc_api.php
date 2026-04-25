@@ -69,13 +69,14 @@ function fetch_quote($symbol)
     }
     return $transformedResult;
 }
-function search_companies($search)
+function search_fighters($search)
 {
-    $data = ["function" => "SYMBOL_SEARCH", "keywords" => $search, "datatype" => "json"];
-    $endpoint = "https://alpha-vantage.p.rapidapi.com/query";
+    $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
+    $slug = $_GET["symbol"];
+    $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/fighters/$slug/stats";
     $isRapidAPI = true;
-    $rapidAPIHost = "alpha-vantage.p.rapidapi.com";
-    $result = get($endpoint, "STOCK_API_KEY", $data, $isRapidAPI, $rapidAPIHost);
+    $rapidAPIHost = "ufc-api5.p.rapidapi.com";
+    $result = get($endpoint, "UFC_API_KEY", $data, $isRapidAPI, $rapidAPIHost);
     //example of cached data to save the quotas, don't forget to comment out the get() if using the cached data for testing
     /* $result = ["status" => 200, "response" => {
         "bestMatches": [
@@ -151,11 +152,12 @@ function search_companies($search)
             }
             // map/extract desired information
             $data = [
-                "symbol" => $r["symbol"],
                 "name" => $r["name"],
-                "type" => $r["type"],
-                "region" => $r["region"],
-                "currency" => $r["currency"],
+                "striking_accuracy_pct" => $r["striking_accuracy_pct"],
+                "takedown_accuracy_pct" => $r["takedown_accuracy_pct"],
+                "sig_str_landed" => $r["sig_str_landed"],
+                "sig_str_defense_pct" => $r["sig_str_defense_pct"],
+                "takedown_defense_pct" => $r["takedown_defense_pct"],
                 "is_api" => 1
             ];
             array_push($transformedResult, $data);
