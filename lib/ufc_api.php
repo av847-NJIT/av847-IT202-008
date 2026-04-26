@@ -13,9 +13,8 @@
  */
 function fetch_quote($symbol)
 {
-    $data = ["symbol" => $_GET["symbol"], "datatype" => "json"];
-
-    $slug = $_GET["symbol"];
+    $data = [];
+    $slug = $symbol;
     $endpoint = "https://ufc-api5.p.rapidapi.com/api/v1/fighters/$slug/stats";
     $isRapidAPI = true;
     $rapidAPIHost = "ufc-api5.p.rapidapi.com";
@@ -43,29 +42,18 @@ function fetch_quote($symbol)
     }
     $transformedResult = [];
     // transform data to match our DB structure
-    if (isset($result["Global Quote"])) {
+   if (isset($result["data"])) {
+        $fighter = $result["data"];
 
-        $quote = $result["Global Quote"];
-        foreach ($quote as $k => $v) {
-            // remove the numbers from the keys and fix spaces to underscores
-            // "01. symbol"
-            //["01.", "symbol"]
-            $k = str_replace(" ", "_", /*symbol*/ explode(" ", $k, 2)[1]);
-
-            $v = str_replace("%", "", $v);
-            if (is_numeric($v)) {
-                if (strpos($v, ".") !== false) {
-                    $v = floatval($v);
-                } else {
-                    $v = intval($v);
-                }
-            }
-            // assign updated/mapped key/values
-            $transformedResult[$k] = $v;
-        }
-        // removed used data
-        unset($transformedResult["previous_close"]);
-        unset($transformedResult["change"]);
+        $transformedResult = [
+            "name" => $fighter["name"],
+            "striking_accuracy_pct" => $fighter["striking_accuracy_pct"],
+            "takedown_accuracy_pct" => $fighter["takedown_accuracy_pct"],
+            "sig_strikes_landed" => $fighter["sig_strikes_landed"],
+            "sig_str_defense_pct" => $fighter["sig_str_defense_pct"],
+            "takedown_defense_pct" => $fighter["takedown_defense_pct"],
+            "slug" => $fighter["slug"]
+        ];
     }
     return $transformedResult;
 }

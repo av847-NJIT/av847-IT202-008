@@ -78,10 +78,10 @@ if (isset($_POST["action"])) {
     <h3>Create or Fetch Fighter Stats</h3>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link bg-success" href="#" onclick="switchTab('fetch')">Fetch</a>
+            <a class="nav-link bg-success" href="#" onclick="switchTab('create')">Fetch</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link bg-success" href="#" onclick="switchTab('create')">Create</a>
+            <a class="nav-link bg-success" href="#" onclick="switchTab('fetch')">Create</a>
         </li>
     </ul>
 
@@ -104,23 +104,23 @@ if (isset($_POST["action"])) {
             </div>
             <div class="mb-3">
                 <label for="striking_accuracy">Striking Accuracy (%)</label>
-                <input type="number" step="0.01" min="0" max="100" name="striking_accuracy" id="striking_accuracy" placeholder="Striking Accuracy" required>
+                <input type="number" step="0.01" min="0" max="100" name="striking_accuracy" id="striking_accuracy" placeholder="Striking Accuracy" style="width: 150px;" required>
             </div>
             <div class="mb-3">
                 <label for="takedown_accuracy">Takedown Accuracy (%)</label>
-                <input type="number" step="0.01" min="0" max="100" name="takedown_accuracy" id="takedown_accuracy" placeholder="Takedown Accuracy" required>
+                <input type="number" step="0.01" min="0" max="100" name="takedown_accuracy" id="takedown_accuracy" placeholder="Takedown Accuracy" style="width: 150px;" required>
             </div>
             <div class="mb-3">
                 <label for="significant_strikes_landed">Significant Strikes Landed</label>
-                <input type="number" min="0" name="significant_strikes_landed" id="significant_strikes_landed" placeholder="Significant Strikes Landed" required>
+                <input type="number" min="0" name="significant_strikes_landed" id="significant_strikes_landed" placeholder="Significant Strikes Landed" style="width: 200px;" required>
             </div>
             <div class="mb-3">
                 <label for="significant_strikes_defense">Significant Strikes Defense (%)</label>
-                <input type="number" step="0.01" min="0" max="100" name="significant_strikes_defense" id="significant_strikes_defense" placeholder="Significant Strikes Defense" required>
+                <input type="number" step="0.01" min="0" max="100" name="significant_strikes_defense" id="significant_strikes_defense" placeholder="Significant Strikes Defense" style="width: 200px;" required>
             </div>
             <div class="mb-3">
                 <label for="takedown_defense">Takedown Defense (%)</label>
-                <input type="number" step="0.01" min="0" max="100" name="takedown_defense" id="takedown_defense" placeholder="Takedown Defense" required>
+                <input type="number" step="0.01" min="0" max="100" name="takedown_defense" id="takedown_defense" placeholder="Takedown Defense" style="width: 150px;" required>
             </div>
             <input type="hidden" name="action" value="create">
             <input type="submit" value="Create" class="btn btn-primary">
