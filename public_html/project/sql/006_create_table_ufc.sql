@@ -1,4 +1,4 @@
-CREATE TABLE `FighterStats` (
+CREATE TABLE `IT202-F26-FighterStats` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(100) NOT NULL,
   `striking_accuracy` decimal(5,2) NOT NULL,
