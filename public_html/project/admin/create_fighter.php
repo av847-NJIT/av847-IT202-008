@@ -16,18 +16,18 @@ if (isset($_POST["action"])) {
 
     if ($name) {
         if ($action === "fetch") {
-            $result = fetch_quote($name); // your API fetch function
+            $result = fetch_quote($name); 
 
             error_log("Data from API: " . var_export($result, true));
             if ($result) {
-                $fighter["name"]                       = $result["name"];
-                $fighter["striking_accuracy"]          = $result["striking_accuracy_pct"];
-                $fighter["takedown_accuracy"]          = $result["takedown_accuracy_pct"];
+                $fighter["name"] = $result["name"];
+                $fighter["striking_accuracy"] = $result["striking_accuracy_pct"];
+                $fighter["takedown_accuracy"] = $result["takedown_accuracy_pct"];
                 $fighter["significant_strikes_landed"] = $result["sig_strikes_landed"];
                 $fighter["significant_strikes_defense"] = $result["sig_str_defense_pct"];
-                $fighter["takedown_defense"]           = $result["takedown_defense_pct"];
-                $fighter["api_id"]                     = $result["slug"]; // or however your API identifies records
-                $fighter["is_api"]                     = 1;
+                $fighter["takedown_defense"] = $result["takedown_defense_pct"];
+                $fighter["api_id"] = $result["slug"]; 
+                $fighter["is_api"] = 1;
             }
         } else if ($action === "create") {
             foreach ($_POST as $k => $v) {
@@ -44,7 +44,7 @@ if (isset($_POST["action"])) {
         flash("You must provide a fighter name", "warning");
     }
 
-    // Insert data - only table name differs from professor's template
+    // Insert data
     if (!empty($fighter)) {
         $db = getDB();
         $query = "INSERT INTO `IT202-F26-FighterStats` ";
