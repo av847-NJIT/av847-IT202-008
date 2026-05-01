@@ -21,7 +21,7 @@ if (isset($_POST["name"])) {
 
     $fighter["id"] = $id;
     try {
-        $r = update("IT202-F26-FighterStats", $fighter);
+        $r = update("IT202-S26-FighterStats", $fighter);
         if ($r["rowCount"]) {
             flash("Updated " . $r["rowCount"] . " record(s)", "success");
         } else {

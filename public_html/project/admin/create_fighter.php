@@ -46,7 +46,7 @@ if (isset($_POST["action"])) {
 
     // Insert data
     try {
-        $r = insert("IT202-F26-FighterStats", $fighter, ["update_duplicate" => true]);
+        $r = insert("IT202-S26-FighterStats", $fighter, ["update_duplicate" => true]);
         if ($r["lastInsertId"]) {
             flash("Inserted record " . $r["lastInsertId"], "success");
         } else {
