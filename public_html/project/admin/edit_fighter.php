@@ -40,7 +40,7 @@ if (isset($_POST["name"])) {
 $fighter = [];
 if ($id > -1) {
     $db = getDB();
-    $query = "SELECT name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense FROM `IT202-F26-FighterStats` WHERE id = :id";
+    $query = "SELECT name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense FROM `IT202-S26-FighterStats` WHERE id = :id";
     try {
         $stmt = $db->prepare($query);
         $stmt->execute([":id" => $id]);
