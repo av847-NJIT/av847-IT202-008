@@ -19,36 +19,28 @@ if (isset($_POST["name"])) {
         error_log("Cleaned up POST: " . var_export($fighter, true));
     }
 
-    $db = getDB();
-    $query = "UPDATE `IT202-F26-FighterStats` SET ";
-
-    $params = [];
-    foreach ($fighter as $k => $v) {
-        if ($params) {
-            $query .= ",";
-        }
-        $query .= "`$k`=:$k";
-        $params[":$k"] = $v;
-    }
-
-    $query .= " WHERE id = :id";
-    $params[":id"] = $id;
-    error_log("Query: " . $query);
-    error_log("Params: " . var_export($params, true));
+    $fighter["id"] = $id;
     try {
-        $stmt = $db->prepare($query);
-        $stmt->execute($params);
-        flash("Updated record", "success");
+        $r = update("IT202-S26-FighterStats", $fighter);
+        if ($r["rowCount"]) {
+            flash("Updated " . $r["rowCount"] . " record(s)", "success");
+        } else {
+            flash("Error updating record(this can occur if no properties changed)", "warning");
+        }
     } catch (PDOException $e) {
         error_log("Something broke with the query: " . var_export($e, true));
         flash("An error occurred", "danger");
+    }
+    catch(Exception $e){
+        error_log("Something broke with the query" . var_export("$e, true"));
+        flash("An error occurred: " . $e->getMessage(), "danger");
     }
 }
 
 $fighter = [];
 if ($id > -1) {
     $db = getDB();
-    $query = "SELECT name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense FROM `IT202-F26-FighterStats` WHERE id = :id";
+    $query = "SELECT name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense FROM `IT202-S26-FighterStats` WHERE id = :id";
     try {
         $stmt = $db->prepare($query);
         $stmt->execute([":id" => $id]);
