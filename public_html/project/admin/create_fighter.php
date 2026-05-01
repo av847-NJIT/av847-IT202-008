@@ -16,7 +16,7 @@ if (isset($_POST["action"])) {
 
     if ($name) {
         if ($action === "fetch") {
-            $result = fetch_quote($name); 
+            $result = fetch_quote($name);
 
             error_log("Data from API: " . var_export($result, true));
             if ($result) {
@@ -26,7 +26,7 @@ if (isset($_POST["action"])) {
                 $fighter["significant_strikes_landed"] = $result["sig_strikes_landed"];
                 $fighter["significant_strikes_defense"] = $result["sig_str_defense_pct"];
                 $fighter["takedown_defense"] = $result["takedown_defense_pct"];
-                $fighter["api_id"] = $result["slug"]; 
+                $fighter["api_id"] = $result["slug"];
                 $fighter["is_api"] = 1;
             }
         } else if ($action === "create") {
@@ -45,31 +45,16 @@ if (isset($_POST["action"])) {
     }
 
     // Insert data
-    if (!empty($fighter)) {
-        $db = getDB();
-        $query = "INSERT INTO `IT202-F26-FighterStats` ";
-        $columns = [];
-        $params = [];
-
-        foreach ($fighter as $k => $v) {
-            array_push($columns, "`$k`");
-            $params[":$k"] = $v;
+    try {
+        $r = insert("IT202-F26-FighterStats", $quote, ["update_duplicate" => true]);
+        if ($r["lastInsertID"]) {
+            flash("Inserted record " . $r["lastInsertId"], "success");
+        } else {
+            flash("Error inserting record", "warning");
         }
-
-        $query .= "(" . join(",", $columns) . ")";
-        $query .= " VALUES (" . join(",", array_keys($params)) . ")";
-
-        error_log("Query: " . $query);
-        error_log("Params: " . var_export($params, true));
-
-        try {
-            $stmt = $db->prepare($query);
-            $stmt->execute($params);
-            flash("Inserted record " . $db->lastInsertId(), "success");
-        } catch (PDOException $e) {
-            error_log("Something broke with the query: " . var_export($e, true));
-            flash("An error occurred", "danger");
-        }
+    } catch (PDOException $e) {
+        error_log("Something broke with the query" . var_export($e, true));
+        flash("An error occured: " . $e->getMessage(), "danger");
     }
 }
 ?>
