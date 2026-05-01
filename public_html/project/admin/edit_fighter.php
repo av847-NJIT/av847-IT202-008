@@ -25,7 +25,7 @@ if (isset($_POST["name"])) {
         if ($r["rowCount"]) {
             flash("Updated " . $r["rowCount"] . " record(s)", "success");
         } else {
-            flash("Error updating record(this can occur if no properties changed", "warning");
+            flash("Error updating record(this can occur if no properties changed)", "warning");
         }
     } catch (PDOException $e) {
         error_log("Something broke with the query: " . var_export($e, true));
