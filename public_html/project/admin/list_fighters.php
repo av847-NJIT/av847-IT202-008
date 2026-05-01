@@ -6,7 +6,7 @@ if (!has_role("Admin")) {
     die(header("Location: " . get_url("landing.php")));
 }
 
-$query = "SELECT id, name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense, api_id, is_api FROM `IT202-F26-FighterStats` ORDER BY created DESC LIMIT 25";
+$query = "SELECT id, name, striking_accuracy, takedown_accuracy, significant_strikes_landed, significant_strikes_defense, takedown_defense, api_id, is_api FROM `IT202-S26-FighterStats` ORDER BY created DESC LIMIT 25";
 $db = getDB();
 $stmt = $db->prepare($query);
 $results = [];

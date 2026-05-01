@@ -1,4 +1,4 @@
-CREATE TABLE `IT202-S26-FighterStats` (
+CREATE TABLE `IT202-F26-FighterStats` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(100) NOT NULL,
   `striking_accuracy` decimal(5,2) NOT NULL,
@@ -12,4 +12,6 @@ CREATE TABLE `IT202-S26-FighterStats` (
   `is_api` tinyint(1) DEFAULT '0'
 )
 
-ALTER TABLE `IT202-S26-FighterStats` ADD UNIQUE (`api_id`);
+RENAME TABLE `IT202-F26-FighterStats` TO `IT202-S26-FighterStats`;
+
+TRUNCATE TABLE `IT202-S26-FighterStats`;
