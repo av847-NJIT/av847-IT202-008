@@ -11,3 +11,5 @@ CREATE TABLE `IT202-S26-FighterStats` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_api` tinyint(1) DEFAULT '0'
 )
+
+ALTER TABLE `IT202-S26-FighterStats` ADD UNIQUE (`api_id`);
