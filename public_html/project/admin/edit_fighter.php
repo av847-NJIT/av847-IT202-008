@@ -19,9 +19,9 @@ if (isset($_POST["name"])) {
         error_log("Cleaned up POST: " . var_export($fighter, true));
     }
 
-    $quote["id"] = $id;
+    $fighter["id"] = $id;
     try {
-        $r = update("IT202-F26-FighterStats", $quote);
+        $r = update("IT202-F26-FighterStats", $fighter);
         if ($r["rowCount"]) {
             flash("Updated " . $r["rowCount"] . " record(s)", "success");
         } else {
