@@ -75,11 +75,12 @@ nav::after {
 
 }
 
+/*
 label {
     border: #14181b;
     background-color: rgb(246, 244, 241);
 }
-
+*/
 input {
     border-radius: 25%;
     padding: .25rem;

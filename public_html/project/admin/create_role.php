@@ -28,19 +28,21 @@ if (isset($_POST["name"], $_POST["description"])) {
         }
     }
 }
+// represent form as data
+$form = [
+    ["id" => "name", "name" => "name", "label" => "Name", "rules" => ["required" => true]],
+    ["type" => "textarea", "id" => "name", "name" => "description", "label" => "Description", "rules" => ["required" => true]]
+];
 ?>
-<h3>Create Role</h3>
-<form method="POST">
-    <div>
-        <label for="name">Name</label>
-        <input id="name" name="name" required />
-    </div>
-    <div>
-        <label for="d">Description</label>
-        <textarea name="description" id="d"></textarea>
-    </div>
-    <input type="submit" value="Create Role" />
-</form>
+<div class="container-fluid">
+    <h1>Create Role</h1>
+    <form method="POST">
+        <?php foreach ($form as $field): ?>
+            <?php render_input($field); ?>
+        <?php endforeach; ?>
+        <?php render_button(["text" => "Create Role", "type" => "submit"]); ?>
+    </form>
+</div>
 <?php
 //note we need to go up 1 more directory
 require_once(__DIR__ . "/../../../partials/flash.php");
