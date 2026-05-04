@@ -45,6 +45,9 @@ require(__DIR__ . "/../lib/functions.php");
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="<?php get_url('profile.php', true); ?>">Profile</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<?php get_url('compare_fighters.php', true); ?>">Compare Fighters</a>
+                    </li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item">
@@ -92,10 +95,12 @@ require(__DIR__ . "/../lib/functions.php");
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="<?php //get_url('admin/create_company.php', true); ?>">Create Company</a>
+                                <a class="nav-link" aria-current="page" href="<?php //get_url('admin/create_company.php', true); 
+                                                                                ?>">Create Company</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="<?php //get_url('admin/list_companies.php', true); ?>">List Companies</a>
+                                <a class="nav-link" aria-current="page" href="<?php //get_url('admin/list_companies.php', true); 
+                                                                                ?>">List Companies</a>
                             </li>
                         </ul>
                     </li>
