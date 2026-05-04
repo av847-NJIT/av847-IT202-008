@@ -1,26 +1,30 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+
+$form = [
+    ["type" => "email", "id" => "email", "name" => "email", "label" => "Email", "rules" => ["required" => true]],
+    [
+        "type" => "text",
+        "id" => "username",
+        "name" => "username",
+        "label" => "Username",
+        "rules" => [
+            "required" => true,
+            "maxlength" => 30,
+            "title" => "Lowercase, alphanumerical, and can only contain _ or -"
+        ]
+    ],
+    ["type" => "password", "id" => "password", "name" => "password", "label" => "Password", "rules" => ["required" => true, "minlength" => 8]],
+    ["type" => "password", "id" => "confirm", "name" => "confirm", "label" => "Confirm Password", "rules" => ["required" => true, "minlength" => 8]],
+];
 ?>
 <div class="container-fluid">
     <h3>Register</h3>
     <form onsubmit="return validate(this)" method="POST">
-        <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" id="email" type="email" name="email" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" required maxlength="30" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="pw">Password</label>
-            <input class="form-control" type="password" id="pw" name="password" required minlength="8" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="confirm">Confirm</label>
-            <input class="form-control" type="password" name="confirm" required minlength="8" />
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register" />
+        <?php foreach ($form as $field): ?>
+            <?php render_input($field); ?>
+        <?php endforeach; ?>
+        <?php render_button(["text" => "Register", "type" => "submit"]); ?>
     </form>
 </div>
 
@@ -73,7 +77,7 @@ if (isset($_POST["email"], $_POST["password"], $_POST["confirm"], $_POST["userna
         $hasError = true;
     }
     if (!is_valid_username($username)) {
-        flash("Username must be lowercase, alphanumerical, and can only contain _ or -", "danger");
+        flash("Username must be lowercase, alphanumerical, can only contain _ or -, and be between 3 to 30 characters", "danger");
         $hasError = true;
     }
     if (empty($password)) {
