@@ -52,7 +52,7 @@
     }
 }
 
-/* Update the below for Milestone 1 requirements */
+/*
 nav li {
     display: inline;
     background-color: rgb(4, 123, 197);
@@ -69,17 +69,15 @@ nav li a:hover {
 
 nav::after {
     text-align: center;
-    /*content: "(*Edit the hideous css)";
-    color: red;
-    */
-
+    
 }
+
 
 label {
     border: #14181b;
     background-color: rgb(246, 244, 241);
 }
-
+*/
 input {
     border-radius: 25%;
     padding: .25rem;
