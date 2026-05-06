@@ -37,8 +37,51 @@ if (isset($_POST["action"])) {
                 }
             }
             $fighter = $_POST;
-            $fighter["is_api"] = 0;
-            error_log("Cleaned up POST: " . var_export($fighter, true));
+
+            $hasError = false;
+
+            // PHP validations
+            if (empty($fighter["name"])) {
+                flash("PHP-Fighter name must not be empty", "danger");
+                $hasError = true;
+            }
+            if (!is_numeric($fighter["striking_accuracy"]) || $fighter["striking_accuracy"] < 0 || $fighter["striking_accuracy"] > 100) {
+                flash("PHP-Striking accuracy must be between 0 and 100", "danger");
+                $hasError = true;
+            }
+            if (!is_numeric($fighter["takedown_accuracy"]) || $fighter["takedown_accuracy"] < 0 || $fighter["takedown_accuracy"] > 100) {
+                flash("PHP-Takedown accuracy must be between 0 and 100", "danger");
+                $hasError = true;
+            }
+            if (!is_numeric($fighter["significant_strikes_landed"]) || $fighter["significant_strikes_landed"] < 0) {
+                flash("PHP-Significant strikes landed must be a positive number", "danger");
+                $hasError = true;
+            }
+            if (!is_numeric($fighter["significant_strikes_defense"]) || $fighter["significant_strikes_defense"] < 0 || $fighter["significant_strikes_defense"] > 100) {
+                flash("PHP-Significant strikes defense must be between 0 and 100", "danger");
+                $hasError = true;
+            }
+            if (!is_numeric($fighter["takedown_defense"]) || $fighter["takedown_defense"] < 0 || $fighter["takedown_defense"] > 100) {
+                flash("PHP-Takedown defense must be between 0 and 100", "danger");
+                $hasError = true;
+            }
+
+            if (!$hasError) {
+                $db = getDB();
+                $nameCheck = $db->prepare("SELECT id FROM `IT202-S26-FighterStats` WHERE name = :name");
+                $nameCheck->execute([":name" => $fighter["name"]]);
+                if ($nameCheck->rowCount() > 0) {
+                    flash("A fighter with this name already exists", "warning");
+                    $hasError = true;
+                }
+            }
+
+            if ($hasError) {
+                $fighter = [];
+            } else {
+                $fighter["is_api"] = 0;
+                error_log("Cleaned up POST: " . var_export($fighter, true));
+            }
         }
     } else {
         flash("You must provide a fighter name", "warning");
@@ -114,6 +157,48 @@ if (isset($_POST["action"])) {
 </div>
 
 <script>
+    // JS validations
+    function validate(form) {
+        // only validate the create form
+        if (form.action.value !== "create") {
+            return true;
+        }
+
+        let isValid = true;
+        let striking = parseFloat(form.striking_accuracy.value);
+        let takedown = parseFloat(form.takedown_accuracy.value);
+        let strikesLanded = parseInt(form.significant_strikes_landed.value);
+        let strikesDefense = parseFloat(form.significant_strikes_defense.value);
+        let takedownDefense = parseFloat(form.takedown_defense.value);
+
+        if (!form.name.value.trim()) {
+            flash("JS-Fighter name must not be empty", "warning");
+            isValid = false;
+        }
+        if (isNaN(striking) || striking < 0 || striking > 100) {
+            flash("JS-Striking accuracy must be between 0 and 100", "warning");
+            isValid = false;
+        }
+        if (isNaN(takedown) || takedown < 0 || takedown > 100) {
+            flash("JS-Takedown accuracy must be between 0 and 100", "warning");
+            isValid = false;
+        }
+        if (isNaN(strikesLanded) || strikesLanded < 0) {
+            flash("JS-Significant strikes landed must be a positive number", "warning");
+            isValid = false;
+        }
+        if (isNaN(strikesDefense) || strikesDefense < 0 || strikesDefense > 100) {
+            flash("JS-Significant strikes defense must be between 0 and 100", "warning");
+            isValid = false;
+        }
+        if (isNaN(takedownDefense) || takedownDefense < 0 || takedownDefense > 100) {
+            flash("JS-Takedown defense must be between 0 and 100", "warning");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     function switchTab(tab) {
         let target = document.getElementById(tab);
         if (target) {
