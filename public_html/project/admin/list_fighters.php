@@ -85,27 +85,39 @@ try {
     </form>
 
     <?php if (count($results) == 0) : ?>
-        <p>No results to show</p>
+        <p>No results found for your search.</p>
     <?php else : ?>
         <table class="table table-bordered">
-            <?php foreach ($results as $index => $record) : ?>
-                <?php if ($index == 0) : ?>
-                    <thead class="table-dark">
-                        <?php foreach ($record as $column => $value) : ?>
-                            <th><?php se($column); ?></th>
-                        <?php endforeach; ?>
-                        <th>Actions</th>
-                    </thead>
-                <?php endif; ?>
+            <thead class="table-dark">
                 <tr>
-                    <?php foreach ($record as $column => $value) : ?>
-                        <td><?php se($value, null, "N/A"); ?></td>
-                    <?php endforeach; ?>
-                    <td>
-                        <a href="<?php echo get_url("admin/edit_fighter.php"); ?>?id=<?php se($record, "id"); ?>" class="btn btn-sm btn-primary">Edit</a>
-                    </td>
+                    <th>Name</th>
+                    <th>Striking Accuracy</th>
+                    <th>Takedown Accuracy</th>
+                    <th>Sig. Strikes Landed</th>
+                    <th>Sig. Strikes Defense</th>
+                    <th>Takedown Defense</th>
+                    <th>Source</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
+            </thead>
+            <tbody>
+                <?php foreach ($results as $record) : ?>
+                    <tr>
+                        <td><?php echo $record["name"] ?? "N/A"; ?></td>
+                        <td><?php echo $record["striking_accuracy"] ?? "N/A"; ?>%</td>
+                        <td><?php echo $record["takedown_accuracy"] ?? "N/A"; ?>%</td>
+                        <td><?php echo $record["significant_strikes_landed"] ?? "N/A"; ?></td>
+                        <td><?php echo $record["significant_strikes_defense"] ?? "N/A"; ?>%</td>
+                        <td><?php echo $record["takedown_defense"] ?? "N/A"; ?>%</td>
+                        <td><?php echo $record["is_api"] ? "API" : "Manual"; ?></td>
+                        <td>
+                            <a href="<?php echo get_url('admin/view_fighter.php'); ?>?id=<?php echo $record["id"]; ?>" class="btn btn-sm btn-info">View</a>
+                            <a href="<?php echo get_url('admin/edit_fighter.php'); ?>?id=<?php echo $record["id"]; ?>" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="<?php echo get_url('admin/delete_fighter.php'); ?>?id=<?php echo $record["id"]; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete <?php echo htmlspecialchars($record['name']); ?>?')">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
     <?php endif; ?>
 </div>
