@@ -1,5 +1,4 @@
 <?php
-// View fighter
 require(__DIR__ . "/../../../partials/nav.php");
 
 if (!has_role("Admin")) {
@@ -14,6 +13,7 @@ if ($id <= 0) {
     die(header("Location: " . get_url("admin/list_fighters.php")));
 }
 
+// View fighter from DB
 $db = getDB();
 $fighter = [];
 try {
