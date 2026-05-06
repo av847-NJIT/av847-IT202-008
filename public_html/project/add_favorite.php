@@ -62,5 +62,7 @@ try {
     flash("An error occurred", "danger");
 }
 
-header("Location: " . get_url("list_favorites.php"));
+$search = isset($_SERVER["HTTP_REFERER"]) ? parse_url($_SERVER["HTTP_REFERER"], PHP_URL_QUERY) : "";
+$redirect = get_url("search_fighters.php") . ($search ? "?" . $search : "");
+header("Location: " . $redirect);
 exit();
