@@ -1,4 +1,5 @@
 <?php
+// View fighter
 require(__DIR__ . "/../../../partials/nav.php");
 
 if (!has_role("Admin")) {

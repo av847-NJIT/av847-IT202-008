@@ -13,6 +13,7 @@ if ($id <= 0) {
     die(header("Location: " . get_url("admin/list_fighters.php")));
 }
 
+// Deletes fighter from DB
 $db = getDB();
 try {
     $stmt = $db->prepare("DELETE FROM `IT202-S26-FighterStats` WHERE id = :id");
