@@ -88,16 +88,18 @@ if (isset($_POST["action"])) {
     }
 
     // Insert data
-    try {
-        $r = insert("IT202-S26-FighterStats", $fighter, ["update_duplicate" => true]);
-        if ($r["lastInsertId"]) {
-            flash("Inserted record " . $r["lastInsertId"], "success");
-        } else {
-            flash("Error inserting record", "warning");
+    if (!empty($fighter)) {
+        try {
+            $r = insert("IT202-S26-FighterStats", $fighter, ["update_duplicate" => true]);
+            if ($r["lastInsertId"]) {
+                flash("Inserted record " . $r["lastInsertId"], "success");
+            } else {
+                flash("Error inserting record", "warning");
+            }
+        } catch (PDOException $e) {
+            error_log("Something broke with the query" . var_export($e, true));
+            flash("An error occured: " . $e->getMessage(), "danger");
         }
-    } catch (PDOException $e) {
-        error_log("Something broke with the query" . var_export($e, true));
-        flash("An error occured: " . $e->getMessage(), "danger");
     }
 }
 ?>
@@ -125,7 +127,7 @@ if (isset($_POST["action"])) {
     </div>
 
     <div id="create" style="display: none;" class="tab-target">
-        <form method="POST">
+        <form method="POST" onsubmit="return validate(this)">
             <div class="mb-3">
                 <label for="name">Fighter Name</label>
                 <input type="text" name="name" id="name" placeholder="Fighter Name" required>
