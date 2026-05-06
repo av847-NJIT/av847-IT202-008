@@ -49,6 +49,9 @@ require(__DIR__ . "/../lib/functions.php");
                         <a class="nav-link" aria-current="page" href="<?php get_url('compare_fighters.php', true); ?>">Compare Fighters</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<?php get_url('search_fighters.php', true); ?>">Search Fighters</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="<?php get_url('list_favorites.php', true); ?>">My Favorites</a>
                     </li>
                 <?php endif; ?>
