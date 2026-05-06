@@ -85,7 +85,7 @@ require(__DIR__ . "/../lib/functions.php");
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/create_fighter.php', true); ?>">Create Fighter</a>
                             </li>
-                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_fighters.php', true); ?>">List Fighter</a>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_fighters.php', true); ?>">List Fighter(s)</a>
                             </li>
                         </ul>
                     </li>
