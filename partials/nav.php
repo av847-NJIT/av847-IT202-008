@@ -90,6 +90,9 @@ require(__DIR__ . "/../lib/functions.php");
                             </li>
                             <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_fighters.php', true); ?>">List Fighter(s)</a>
                             </li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_all_favorites.php', true); ?>">All Favorites</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_unfavorited_fighters.php', true); ?>">Unfavorited Fighters</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/assign_favorites.php', true); ?>">Assign Favorites</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
