@@ -1,24 +1,22 @@
 <?php
-//note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: " . get_url("landing.php")));
 }
-//attempt to apply
+
+// attempt to apply
 if (isset($_POST["users"], $_POST["roles"])) {
-    $user_ids = $_POST["users"]; //se() doesn't like arrays so we'll just do this
-    $role_ids = $_POST["roles"]; //se() doesn't like arrays so we'll just do this
+    $user_ids = $_POST["users"];
+    $role_ids = $_POST["roles"];
     if (empty($user_ids) || empty($role_ids)) {
         flash("Both users and roles need to be selected", "warning");
     } else {
-        //for sake of simplicity, this will be a tad inefficient (normally bulk operations should fail/pass together)
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO UserRoles (user_id, role_id, is_active) VALUES (:uid, :rid, 1) 
         ON DUPLICATE KEY UPDATE is_active = !is_active");
 
-        // triggers 1 query per pair, that way an exception will only affect that pair rather than the bulk operation
         foreach ($user_ids as $uid) {
             foreach ($role_ids as $rid) {
                 try {
@@ -37,17 +35,14 @@ if (isset($_POST["users"], $_POST["roles"])) {
     }
 }
 
-
-
-//search for user by username
+// search for user by username
 $users = [];
 $active_roles = [];
 $username = "";
-if (isset($_POST["username"])) {
 
+if (isset($_POST["username"])) {
     $username = trim(se($_POST, "username", "", false));
     if (!empty($username)) {
-        //get active roles only if a username was submitted
         $active_roles = [];
         $db = getDB();
         $stmt = $db->prepare("SELECT id, name, description FROM Roles WHERE is_active = 1 LIMIT 10");
@@ -60,10 +55,7 @@ if (isset($_POST["username"])) {
         } catch (PDOException $e) {
             flash(var_export($e->errorInfo, true), "danger");
         }
-        //fetch usernames with a csv of roles and their active status
-        // Note: the role status will show inactive only if the role has been assigned at least once
-        // We're effectively doing a soft delete by toggling `is_active` to 0.
-        // Alternatively, we could simply delete the UserRole entry, but that would lose history.
+
         $stmt = $db->prepare("SELECT Users.id, username, 
         (SELECT GROUP_CONCAT(name, ' (' , IF(ur.is_active = 1,'active','inactive') , ')') from 
         UserRoles ur 
@@ -83,38 +75,44 @@ if (isset($_POST["username"])) {
         flash("Username must not be empty", "warning");
     }
 }
-
-
 ?>
+
 <h3>Assign Roles</h3>
-<!-- search form -->
+
+<!-- Search Form -->
 <form method="POST">
     <?php render_input(["type" => "text", "name" => "username", "id" => "username", "label" => "Username search", "rules" => ["required" => true]]); ?>
-
     <input type="hidden" name="action" value="fetch">
     <?php render_button(["text" => "Search", "type" => "submit"]); ?>
 </form>
-<!-- empty toggle form, inputs will use the form attribute to associate with this form -->
-<form id="toggleForm" method="POST"></form>
-<?php if (isset($username) && !empty($username)) : ?>
-    <input form="toggleForm" type="hidden" name="username" value="<?php se($username, false); ?>" />
-<?php endif; ?>
+
+<!-- Toggle Form - hidden username field is inside the form tags -->
+<form id="toggleForm" method="POST">
+    <?php if (!empty($username)) : ?>
+        <input type="hidden" name="username" value="<?php echo htmlspecialchars($username); ?>" />
+    <?php endif; ?>
+</form>
+
 <table class="table">
     <thead>
-        <th>Users</th>
-        <th>Roles to Assign</th>
+        <tr>
+            <th>Users</th>
+            <th>Roles to Assign</th>
+        </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <!-- nested table for users -->
                 <table class="table">
+                    <?php if (empty($users) && !empty($username)) : ?>
+                        <tr><td>No results available.</td></tr>
+                    <?php endif; ?>
                     <?php foreach ($users as $user) : ?>
                         <tr>
                             <td>
-
                                 <input form="toggleForm" id="user_<?php se($user, 'id'); ?>" type="checkbox" name="users[]" value="<?php se($user, 'id'); ?>" />
-                                <label form="toggleForm" for="user_<?php se($user, 'id'); ?>"><?php se($user, "username"); ?></label>
+                                <label for="user_<?php se($user, 'id'); ?>"><?php se($user, "username"); ?></label>
                             </td>
                             <td><?php se($user, "roles", "No Roles"); ?></td>
                         </tr>
@@ -123,19 +121,23 @@ if (isset($_POST["username"])) {
             </td>
             <td>
                 <!-- nested data for roles -->
+                <?php if (empty($active_roles) && !empty($username)) : ?>
+                    <p>No roles available.</p>
+                <?php endif; ?>
                 <?php foreach ($active_roles as $role) : ?>
                     <div>
                         <input form="toggleForm" id="role_<?php se($role, 'id'); ?>" type="checkbox" name="roles[]" value="<?php se($role, 'id'); ?>" />
-                        <label form="toggleForm" for="role_<?php se($role, 'id'); ?>"><?php se($role, "name"); ?></label>
+                        <label for="role_<?php se($role, 'id'); ?>"><?php se($role, "name"); ?></label>
                     </div>
                 <?php endforeach; ?>
             </td>
         </tr>
     </tbody>
 </table>
-<?php render_button(["text" => "Toggle Roles", "type" => "submit"]); ?>
+
+<!-- correctly associated with toggleForm -->
+<button type="submit" form="toggleForm" class="btn btn-primary">Toggle Roles</button>
 
 <?php
-//note we need to go up 1 more directory
 require_once(__DIR__ . "/../../../partials/flash.php");
 ?>
