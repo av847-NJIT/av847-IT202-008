@@ -2,7 +2,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 error_log("Session: " . var_export($_SESSION, true));
 ?>
-<<div class="container mt-5 text-center">
+<div class="container mt-5 text-center">
     <h1 class="display-4 mb-3">Home Page</h1>
 
     <p class="lead text-muted w-75 mx-auto">
