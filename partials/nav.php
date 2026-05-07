@@ -48,6 +48,12 @@ require(__DIR__ . "/../lib/functions.php");
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="<?php get_url('compare_fighters.php', true); ?>">Compare Fighters</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<?php get_url('search_fighters.php', true); ?>">Search Fighters</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<?php get_url('list_favorites.php', true); ?>">My Favorites</a>
+                    </li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item">
@@ -82,8 +88,11 @@ require(__DIR__ . "/../lib/functions.php");
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/create_fighter.php', true); ?>">Create Fighter</a>
                             </li>
-                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_fighters.php', true); ?>">List Fighter</a>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_fighters.php', true); ?>">List Fighter(s)</a>
                             </li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_all_favorites.php', true); ?>">All Favorites</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/list_unfavorited_fighters.php', true); ?>">Unfavorited Fighters</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="<?php get_url('admin/assign_favorites.php', true); ?>">Assign Favorites</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
